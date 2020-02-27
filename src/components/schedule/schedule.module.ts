@@ -1,8 +1,8 @@
 import * as angular from 'angular';
-import { AppointmentModule } from './appointment/appointment.module';
-import { MeetingModule } from './meeting/meeting.module';
+import { EventModule } from "./event/event.module";
 import { ScheduleComponent } from './schedule.component';
+import './schedule.less';
 
 export const ScheduleModule = angular
-    .module('schedule', [AppointmentModule, MeetingModule])
+    .module('schedule', [EventModule])
     .component('schedule', ScheduleComponent).name;
