@@ -1,14 +1,22 @@
 export const AppComponent = {
     template: `
-        <header>Scheduler</header>
-        <div>
+        <div class="wrapper">
+            <header>Scheduler</header>            
             <div>
                 <aside>
-                   <div><user></user></div>
-                   <div><appointment-action></appointment-action></div>
-                   <div><meeting-action></meeting-action></div>
+                   <div>
+                       <user></user>
+                   </div>
+                   <div>
+                       <appointment-action></appointment-action>
+                   </div>
+                   <div>
+                       <meeting-action></meeting-action>
+                   </div>
                 </aside>
-                <main></main>
+                <main>
+                    <schedule></schedule>
+                </main>
             </div>
         </div>
     `

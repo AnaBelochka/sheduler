@@ -1,0 +1,33 @@
+div {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 3rem;
+
+  & div {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+
+    & aside {
+      margin-right: 3rem;
+      width: 10rem;
+
+      & > div {
+        margin-bottom: 1rem;
+      }
+
+      & appointment-action {
+        width: 100%;
+      }
+
+      & meeting-action {
+        width: 100%;
+      }
+    }
+  }
+
+  & header {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
