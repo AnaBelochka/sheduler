@@ -1,0 +1,13 @@
+{
+    "actions": [
+        {
+            "type": "meeting",
+            "title": "Meeting",
+            "participants": []
+        },
+        {
+            "type": "appointment",
+            "title": "Appointment"
+        }
+    ]
+}

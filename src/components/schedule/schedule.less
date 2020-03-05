@@ -1,0 +1,24 @@
+:global {
+    .events {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+
+        & > .event {
+            width: 20rem;
+            border: 1px solid black;
+
+            &:nth-child(n) {
+                border-top: none;
+            }
+
+            &:first-child {
+                border-top: 1px solid black;
+            }
+
+            &:nth-child(2n) {
+                background-color: rgb(200,200,200);
+            }
+        }
+    }
+}
