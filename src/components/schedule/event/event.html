@@ -1,5 +1,15 @@
-<div>
-    <div></div>
-    <span>{{$ctrl.title}}</span>
-    <button ng-if="$ctrl.task.type === 'meeting'">Add participants</button>
-</div>
+<li>
+    <div ng-if="$ctrl.event.type === 'meeting'" class="green">
+        <div>
+            <div></div>
+            <div>
+                <div>{{$ctrl.event.title}}</div>
+                <div>Participants: {{$ctrl.event.participants.toString()}}</div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="$ctrl.event.type === 'appointment'" class="red">
+        <div></div>
+        <span>{{$ctrl.event.title}}</span>
+    </div>
+</li>

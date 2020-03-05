@@ -1,8 +1,9 @@
 import template from './event.html';
 import './event.less';
-import { EventController } from "./event.controller";
 
 export const EventComponent = {
+    bindings: {
+        event: '<',
+    },
     template,
-    controller: EventController,
-}
+};

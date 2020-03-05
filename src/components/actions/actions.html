@@ -1,0 +1,11 @@
+<div class="actions" ng-repeat="action in $ctrl.actions">
+    <button ng-click="$ctrl.openAction(action.type)">
+        Add {{action.type}}
+    </button>
+</div>
+<action-popup
+    ng-if="$ctrl.isPopupOpen"
+    action-type="$ctrl.activeActionType"
+    save-callback="$ctrl.onSave(event)"
+    close-action="$ctrl.closeAction()"
+></action-popup>

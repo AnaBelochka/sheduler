@@ -1,33 +1,27 @@
-div {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 3rem;
+:global {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
 
-  & div {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
+        & > div {
+            display: flex;
+            flex-direction: row;
 
-    & aside {
-      margin-right: 3rem;
-      width: 10rem;
+            & > aside {
+                margin-right: 3rem;
+                width: 10rem;
+                padding-left: 3rem;
+            }
+        }
 
-      & > div {
-        margin-bottom: 1rem;
-      }
-
-      & appointment-action {
-        width: 100%;
-      }
-
-      & meeting-action {
-        width: 100%;
-      }
+        & > header {
+            font-size: 2rem;
+            margin: 2rem 3rem;
+        }
     }
-  }
+}
 
-  & header {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
+* {
+    margin: 0;
+    padding: 0;
 }

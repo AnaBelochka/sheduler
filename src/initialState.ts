@@ -4,13 +4,13 @@ export interface User {
 }
 
 export enum types {
-    appointment ='appointment',
-    meeting = 'meeting'
+    appointment = 'appointment',
+    meeting = 'meeting',
 }
 
 export interface BaseAction {
-    type: types,
-    title: string
+    type: types;
+    title: string;
 }
 
 export interface Appointment extends BaseAction {}
@@ -19,29 +19,41 @@ export interface Meeting extends BaseAction {
     participants: Array<string>;
 }
 
-export type Actions = Array<Appointment | Meeting>
+export type Actions = Array<Appointment | Meeting>;
 
 export interface Scheduler {
     user: User;
     actions: Actions;
-    schedule: Actions;
+    events: Actions;
 }
 
-const state:Scheduler = {
+export type eventType = Appointment | Meeting;
+
+export const state: Scheduler = {
     user: {
         name: 'User',
-        isSelected: true
+        isSelected: true,
     },
     actions: [
         {
             type: types.meeting,
-            title: "Meeting"
+            title: 'Meeting',
+            participants: [],
         },
         {
             type: types.appointment,
-            title: "Appointment",
-            participants: []
-        }
+            title: 'Appointment',
+        },
     ],
-    schedule: []
+    events: [],
+};
+
+export interface eventBindings {
+    event: eventType;
+}
+
+export interface httpMochServiceInterface {
+    getUserInfo(): Promise<unknown>;
+    getActionsInfo(): Promise<unknown>;
+    getEventsInfo(): Promise<unknown>
 }
