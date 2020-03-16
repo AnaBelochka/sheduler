@@ -1,17 +1,12 @@
-import { Actions, types, eventType } from '../../initialState';
-import { CREATE_NEW_EVENT } from '../../consts';
+import { types, eventType } from '~initialState';
+import { IScope } from 'angular';
+import { CREATE_NEW_EVENT } from '~consts';
 
 export class ActionsController {
     public activeActionType: types;
-    public actions: Actions = [];
     public isPopupOpen: boolean = false;
-    public $scope: ng.IScope;
-    public newEvent: eventType;
 
-
-    constructor($scope: ng.IScope) {
-        this.$scope = $scope;
-    }
+    constructor(private $scope: IScope) {}
 
     public openAction(type: types): void {
         this.isPopupOpen = true;

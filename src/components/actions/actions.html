@@ -3,9 +3,9 @@
         Add {{action.type}}
     </button>
 </div>
-<action-popup
+<action-popup-component
     ng-if="$ctrl.isPopupOpen"
     action-type="$ctrl.activeActionType"
     save-callback="$ctrl.onSave(event)"
     close-action="$ctrl.closeAction()"
-></action-popup>
+></action-popup-component>
