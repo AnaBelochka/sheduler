@@ -4,9 +4,9 @@ import {
     Scheduler,
     eventType,
     HttpMockServiceInterface,
-} from './initialState';
+} from '~initialState';
 import { IAngularEvent, IScope, ITimeoutService } from 'angular';
-import { CREATE_NEW_EVENT, SEND_NEW_EVENT } from './consts';
+import { CREATE_NEW_EVENT, SEND_NEW_EVENT } from '~consts';
 
 export class SchedulerController {
     public user: User;
@@ -17,25 +17,24 @@ export class SchedulerController {
 
     constructor(
         private $scope: IScope,
-        private HttpMockService: HttpMockServiceInterface,
+        private httpMockService: HttpMockServiceInterface,
         private $timeout: ITimeoutService,
     ) {
-        HttpMockService.getInitialData().then(this.getInitialDataHandler.bind(this));
+        httpMockService.getInitialData().then(this.getInitialDataHandler);
     }
 
-    private getInitialDataHandler(initialData: Scheduler): void {
+    private getInitialDataHandler = ({ user, events, actions }: Scheduler) =>
         this.$timeout(() => {
             this.isDataReceived = true;
-            this.user = initialData.user;
-            this.actions = initialData.actions;
-            this.events = initialData.events;
+            this.user = user;
+            this.actions = actions;
+            this.events = events;
         }, 5000);
-    }
 
     public $onInit() {
         this.unsubscribeCreateNewEvent = this.$scope.$on(
             CREATE_NEW_EVENT,
-            this.sendNewItemHandler.bind(this),
+            this.sendNewItemHandler,
         );
     }
 
@@ -43,9 +42,12 @@ export class SchedulerController {
         this.unsubscribeCreateNewEvent();
     }
 
-    private sendNewItemHandler(event: IAngularEvent, data: eventType): void {
+    private sendNewItemHandler = (
+        event: IAngularEvent,
+        data: eventType,
+    ): void => {
         this.$scope.$broadcast(SEND_NEW_EVENT, data);
-    }
+    };
 }
 
 SchedulerController.$inject = ['$scope', 'HttpMockService', '$timeout'];

@@ -1,4 +1,4 @@
-import template from './user.html'
+import template from '~components/user/user.html'
 
 export const UserComponent = {
     bindings: {

@@ -2,10 +2,12 @@
     <div name="addEvent">
         <span>Add {{$ctrl.actionType}}</span>
         <input type="text" ng-model="$ctrl.title" placeholder="Title" class="title" required/>
+        <span ng-if="$ctrl.validationError.length > 0">{{$ctrl.validationError}}</span>
         <input type="text" ng-model="$ctrl.participants" placeholder="Add participants" ng-if="$ctrl.actionType === 'meeting'" class="participants">
         <div>
-            <button ng-click="$ctrl.addAction()">Add Event</button>
+            <button ng-click="$ctrl.addEvent()">Add Event</button>
             <button ng-click="$ctrl.closeAction()">Close</button>
         </div>
+
     </div>
 </div>

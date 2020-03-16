@@ -1,23 +1,25 @@
-import {Actions, eventType} from '../../initialState';
-import { SEND_NEW_EVENT } from '../../consts';
-import {IAngularEvent} from "angular";
+import { Actions, eventType } from '~initialState';
+import { SEND_NEW_EVENT } from '~consts';
+import { IAngularEvent, IScope } from 'angular';
 
 export class ScheduleController {
-    public events: Actions;
-    public $scope: ng.IScope;
+    public events: Actions = [];
     private unsubscribeEvent: () => void;
 
-    constructor($scope: ng.IScope) {
-        this.$scope = $scope;
+    constructor(private $scope: IScope) {}
+
+    public $onInit() {
+        this.unsubscribeEvent = this.$scope.$on(
+            SEND_NEW_EVENT,
+            this.getNewEventHandler,
+        );
     }
 
-    $onInit() {
-        this.unsubscribeEvent = this.$scope.$on(SEND_NEW_EVENT, (event: IAngularEvent, data: eventType) => {
-            this.events.push(data);
-        });
+    private getNewEventHandler = (event: IAngularEvent, data: eventType) => {
+        this.events.push(data);
     }
 
-    $onDestroy() {
+    public $onDestroy() {
         this.unsubscribeEvent();
     }
 }

@@ -1,11 +1,10 @@
-import template from './action-popup.html';
-import './action-popup.less';
-import { ActionPopupController } from './action-popup.controller';
+import { ActionPopupController } from '~components/actions/actions-popup/action-popup.controller';
+import template from '~components/actions/actions-popup/action-popup.html';
+import '~components/actions/actions-popup/action-popup.less';
 
 export const ActionPopupComponent = {
     bindings: {
         actionType: '=',
-        newEvent: '=',
         saveCallback: '&',
         closeAction: '&',
     },

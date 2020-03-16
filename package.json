@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "dev": "parcel ./src/index.html --open",
-        "build": "parcel build ./src/index.html"
+        "build": "parcel build ./src/index.html",
+        "test": "karma start",
+        "typescript": "tsc --watch"
     },
     "keywords": [],
     "author": "",
@@ -20,7 +22,17 @@
         "@babel/preset-env": "^7.8.4",
         "@babel/preset-typescript": "^7.8.3",
         "@types/angular": "^1.6.57",
+        "@types/angular-mocks": "^1.7.0",
+        "@types/jasmine": "^3.5.7",
+        "angular-mocks": "^1.7.9",
         "autoprefixer": "^9.7.4",
+        "jasmine": "^3.5.0",
+        "jasmine-core": "^3.5.0",
+        "karma": "^4.4.1",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-coverage": "^2.0.1",
+        "karma-jasmine": "^3.1.1",
+        "karma-typescript": "^4.1.1",
         "less": "^3.11.1",
         "parcel-bundler": "^1.12.4",
         "postcss-modules": "^1.5.0",
@@ -29,7 +41,11 @@
         "typescript": "^3.8.2"
     },
     "dependencies": {
+        "@types/node": "^13.9.0",
         "angular": "^1.7.9",
-        "jquery": "^3.4.1"
+        "components": "^0.1.0",
+        "consts": "0.0.2",
+        "jquery": "^3.4.1",
+        "src": "^1.1.2"
     }
 }

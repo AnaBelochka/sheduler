@@ -1,9 +1,9 @@
-import { SchedulerController } from './scheduler.controller';
+import { SchedulerController } from '~components/scheduler/scheduler.controller';
 
 export const SchedulerComponent = {
     template: `
         <div class="wrapper">
-            <header>Scheduler</header>            
+            <header>Scheduler</header>
             <div ng-if="$ctrl.isDataReceived">
                 <aside>
                     <user-component user="$ctrl.user"></user-component>

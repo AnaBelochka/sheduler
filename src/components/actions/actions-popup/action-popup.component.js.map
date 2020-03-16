@@ -1,0 +1,1 @@
+{"version":3,"file":"action-popup.component.js","sourceRoot":"","sources":["action-popup.component.ts"],"names":[],"mappings":";;AAAA,qGAAkG;AAClG,yFAA2E;AAC3E,+DAA6D;AAEhD,QAAA,oBAAoB,GAAG;IAChC,QAAQ,EAAE;QACN,UAAU,EAAE,GAAG;QACf,YAAY,EAAE,GAAG;QACjB,WAAW,EAAE,GAAG;KACnB;IACD,QAAQ,6BAAA;IACR,UAAU,EAAE,+CAAqB;CACpC,CAAC"}

@@ -1,3 +1,5 @@
+import { IPromise } from 'angular';
+
 export interface User {
     name: string;
     isSelected: boolean;
@@ -48,12 +50,15 @@ export const state: Scheduler = {
     events: [],
 };
 
-export interface eventBindings {
+export interface EventBindings {
     event: eventType;
 }
 
-export interface httpMochServiceInterface {
-    getUserInfo(): Promise<unknown>;
-    getActionsInfo(): Promise<unknown>;
-    getEventsInfo(): Promise<unknown>
+export interface HttpMockServiceInterface {
+    getInitialData(): IPromise<unknown>;
+}
+
+export interface ValidationResult {
+    validationError: string;
+    isInValid: boolean;
 }
