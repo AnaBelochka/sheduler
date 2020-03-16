@@ -4,15 +4,16 @@ export const SchedulerComponent = {
     template: `
         <div class="wrapper">
             <header>Scheduler</header>            
-            <div>
+            <div ng-if="$ctrl.isDataReceived">
                 <aside>
-                    <user user="$ctrl.user"></user>
-                    <actions actions="$ctrl.actions"></actions>
+                    <user-component user="$ctrl.user"></user-component>
+                    <actions-component actions="$ctrl.actions"></actions-component>
                 </aside>
                 <main>
-                    <schedule events="$ctrl.events"></schedule>
+                    <schedule-component events="$ctrl.events"></schedule-component>
                 </main>
             </div>
+            <div ng-if="!$ctrl.isDataReceived" class="loading">Loading...</div>
         </div>
     `,
     controller: SchedulerController,
