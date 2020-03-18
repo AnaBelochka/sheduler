@@ -5,11 +5,11 @@ import {
     Meeting,
     types,
     ValidationResult,
-} from '~initialState';
+} from '../../../initialState';
+import { ActionPopupController } from './action-popup.controller';
 
 describe('ActionPopupController', () => {
     let controller: any;
-    let $componentController: any;
 
     const participants: string = 'first, second';
     const title: string = 'first';
@@ -38,76 +38,53 @@ describe('ActionPopupController', () => {
 
     beforeEach(angular.mock.module('scheduler'));
 
-    beforeEach(inject(function(_$componentController_) {
-        $componentController = _$componentController_;
-    }));
-
     beforeEach(() => {
-        controller = $componentController('actionPopupComponent', {}, {});
-    });
-
-    it('should exist', function() {
-        expect(controller).toBeDefined();
+        controller = new ActionPopupController();
     });
 
     describe('#setParticipants', () => {
-        it('should exist', function() {
-            expect(controller.setParticipants).toBeDefined();
-        });
-
-        it('should return array of participants if input string is valid', function() {
+        it('should return array of participants if input string is valid', () => {
             expect(controller.setParticipants(participants)).toEqual([
                 'first',
                 'second',
             ]);
         });
 
-        it('should return undefined if input string is invalid', function() {
+        it('should return undefined if input string is invalid', () => {
             expect(controller.setParticipants('')).toBe(undefined);
         });
     });
 
     describe('#isTitleValid', () => {
-        it('should exist', function() {
-            expect(controller.isTitleValid).toBeDefined();
-        });
-
-        it('should return true if input string is valid', function() {
+        it('should return true if input string is valid', () => {
             expect(controller.isTitleValid(title)).toBeTruthy();
         });
 
-        it('should return false if input string invalid', function() {
+        it('should return false if input string invalid', () => {
             expect(controller.isTitleValid('')).toBeFalsy();
         });
     });
 
     describe('#isParticipantsValid', () => {
-        it('should exist', function() {
-            expect(controller.isParticipantsValid).toBeDefined();
-        });
-
-        it('should return true if input string is valid', function() {
+        it('should return true if input string is valid', () => {
             expect(controller.isParticipantsValid(participants)).toBeTruthy();
         });
 
-        it('should return false if input string invalid', function() {
+        it('should return false if input string invalid', () => {
             expect(controller.isParticipantsValid('')).toBeFalsy();
         });
     });
 
     describe('#createEvent', () => {
-        it('should exist', function() {
-            expect(controller.createEvent).toBeDefined();
-        });
 
-        it('should return appointment if event type is appointment', function() {
+        it('should return appointment if event type is appointment', () => {
             expect(controller.createEvent(appointment, participants)).toEqual({
                 title,
                 type: types.appointment,
             });
         });
 
-        it('should return meeting if event type is meeting', function() {
+        it('should return meeting if event type is meeting', () => {
             expect(controller.createEvent(meeting, participants)).toEqual({
                 title,
                 type: types.meeting,
@@ -126,11 +103,11 @@ describe('ActionPopupController', () => {
             isInValid: true,
         };
         const appointmentValidationResult: ValidationResult = {
-            validationError: 'Title is invalid! ',
+            validationError: 'Title is invalid!',
             isInValid: true,
         };
 
-        it('should return void error and false flag if inputs valid', function() {
+        it('should return object with validationError property equal empty string and isInValid property equal false if inputs valid', () => {
             expect(
                 controller.getValidationResult(
                     appointment,
@@ -138,12 +115,13 @@ describe('ActionPopupController', () => {
                     participants,
                 ),
             ).toEqual(voidValidationResult);
+
             expect(
                 controller.getValidationResult(meeting, true, participants),
             ).toEqual(voidValidationResult);
         });
 
-        it('should return error message and true flag if inputs invalid', function() {
+        it('should return object with validationError and isInValid property equal true if inputs invalid', () => {
             expect(
                 controller.getValidationResult(
                     invalidAppointment,
@@ -159,21 +137,14 @@ describe('ActionPopupController', () => {
     });
 
     describe('#addEvent', () => {
-        it('should call the saveCallback binding, when ', function() {
-            const saveCallbackSpy = jasmine.createSpy('saveCallback');
-            const bindings = { saveCallback: saveCallbackSpy, actionType: 'appointment' };
-
-            controller = $componentController(
-                'actionPopupComponent',
-                null,
-                bindings,
-            );
-
+        it('should call the saveCallback binding, when all inputs valid', () => {
+            controller.saveCallback = jasmine.createSpy('saveCallback');
             controller.title = 'first';
+            controller.actionType = 'appointment';
             controller.addEvent();
 
-            expect(saveCallbackSpy).toHaveBeenCalledWith({
-                event: appointment
+            expect(controller.saveCallback).toHaveBeenCalledWith({
+                event: appointment,
             });
         });
     });

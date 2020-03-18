@@ -1,5 +1,5 @@
-import { Actions, eventType } from '~initialState';
-import { SEND_NEW_EVENT } from '~consts';
+import { Actions, eventType } from '../../initialState';
+import { SEND_NEW_EVENT } from '../../consts';
 import { IAngularEvent, IScope } from 'angular';
 
 export class ScheduleController {

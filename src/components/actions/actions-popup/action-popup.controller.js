@@ -7,6 +7,12 @@ var ActionPopupController = (function () {
         this.title = '';
         this.participants = '';
         this.validationError = '';
+        this.isTitleValid = function (title) {
+            return _consts_1.titleRegexp.test(title);
+        };
+        this.isParticipantsValid = function (participants) {
+            return _consts_1.participantsRegexp.test(participants);
+        };
     }
     ActionPopupController.prototype.setParticipants = function (participants) {
         var hasParticipants = participants.length > 0;
@@ -22,27 +28,25 @@ var ActionPopupController = (function () {
         }
         return event;
     };
-    ActionPopupController.prototype.isTitleValid = function (title) {
-        return _consts_1.titleRegexp.test(title);
-    };
-    ActionPopupController.prototype.isParticipantsValid = function (participants) {
-        return _consts_1.participantsRegexp.test(participants);
-    };
     ActionPopupController.prototype.getValidationResult = function (event, isEventTypeMeeting, participants) {
-        var validationError = '';
-        var isInValid = false;
-        var isTitleValid = this.isTitleValid(event.title);
-        var isParticipantsValid = this.isParticipantsValid(participants);
-        if (!isTitleValid) {
-            validationError = 'Title is invalid! ';
-        }
-        if (isEventTypeMeeting && !isParticipantsValid) {
-            validationError += 'Participants is invalid!';
-        }
-        if (validationError.length > 0) {
-            isInValid = true;
-        }
-        return { validationError: validationError, isInValid: isInValid };
+        var initialValidationState = { validationError: '', isInValid: false };
+        var validators = [this.isTitleValid.bind(this, event.title), this.isParticipantsValid.bind(this, participants)];
+        var errorTitleValidation = { validationError: 'Title is invalid!', isInValid: true };
+        var errorParticipantsValidation = {
+            validationError: 'Participants is invalid!',
+            isInValid: true,
+        };
+        var errorTitleAndParticipantsValidation = {
+            validationError: 'Title is invalid! Participants is invalid!',
+            isInValid: true,
+        };
+        var validationResult = validators.reduce(function (reduceResult, validator, index) {
+            if (index === 1) {
+                return isEventTypeMeeting ? validator() ? reduceResult : reduceResult.isInValid ? errorTitleAndParticipantsValidation : errorParticipantsValidation : reduceResult;
+            }
+            return validator() ? reduceResult : errorTitleValidation;
+        }, initialValidationState);
+        return validationResult;
     };
     ActionPopupController.prototype.setValidationError = function (error) {
         this.validationError = error;

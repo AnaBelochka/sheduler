@@ -1,5 +1,5 @@
-import template from '~components/schedule/event/event.html';
-import '~components/schedule/event/event.less';
+import template from './event.html';
+import './event.less';
 
 export const EventComponent = {
     bindings: {

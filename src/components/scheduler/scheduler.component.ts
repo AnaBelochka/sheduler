@@ -1,4 +1,5 @@
-import { SchedulerController } from '~components/scheduler/scheduler.controller';
+import { SchedulerController } from './scheduler.controller';
+
 
 export const SchedulerComponent = {
     template: `

@@ -15,7 +15,8 @@ export interface BaseAction {
     title: string;
 }
 
-export interface Appointment extends BaseAction {}
+export interface Appointment extends BaseAction {
+}
 
 export interface Meeting extends BaseAction {
     participants: Array<string>;
@@ -62,3 +63,5 @@ export interface ValidationResult {
     validationError: string;
     isInValid: boolean;
 }
+
+export type Validators = (()=>boolean)[];

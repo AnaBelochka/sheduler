@@ -1,6 +1,6 @@
-import { ScheduleController } from '~components/schedule/schedule.controller';
-import template from '~components/schedule/schedule.html';
-import '~components/schedule/schedule.less';
+import { ScheduleController } from './schedule.controller';
+import template from './schedule.html';
+import './schedule.less';
 
 export const ScheduleComponent = {
     bindings: {
