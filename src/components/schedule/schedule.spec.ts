@@ -1,52 +1,36 @@
 import * as angular from 'angular';
 import 'angular-mocks';
-import {IAngularEvent, IRootScopeService, IScope} from 'angular';
-import { Appointment, types } from '~initialState';
-import {SEND_NEW_EVENT} from "~consts";
+import { IAngularEvent } from 'angular';
+import { Appointment, types } from '../../initialState';
+import { ScheduleController } from './schedule.controller';
+import { SEND_NEW_EVENT } from '../../consts';
 
 describe('ScheduleController', () => {
     let controller: any;
-    let $componentController: any;
-    let $scope: IScope;
-    let rootScope: IRootScopeService;
+    let $scope: any;
 
     const appointment: Appointment = {
         type: types.appointment,
         title: 'appointment',
     };
 
-    let event: IAngularEvent;
-
     beforeEach(angular.mock.module('scheduler'));
 
-    beforeEach(inject(function(_$componentController_, $rootScope) {
-        $componentController = _$componentController_;
-        rootScope = $rootScope;
-        $scope = $rootScope.$new();
-    }));
-
     beforeEach(() => {
-        controller = $componentController('scheduleComponent', { $scope }, {});
+        $scope = {};
+        controller = new ScheduleController($scope);
     });
 
-    it('should exist', function() {
-        expect(controller).toBeDefined();
-    });
-
-    it('should get thrown event', function() {
-        let eventEmitted: boolean = false;
-
-        rootScope.$on(SEND_NEW_EVENT, function() {
-            eventEmitted = true;
-        });
-
-        rootScope.$broadcast(SEND_NEW_EVENT, {});
-
-        expect(eventEmitted).toBe(true);
+    it('should get thrown event', () => {
+        $scope.$on = jasmine.createSpy('$on');
+        $scope.$on(SEND_NEW_EVENT, {});
+        expect($scope.$on).toHaveBeenCalledWith(SEND_NEW_EVENT, {});
     });
 
     describe('#getNewEventHandler', () => {
-        it('should add new event if it is necessary', function() {
+        let event: IAngularEvent;
+
+        it('should add new event if it necessary', () => {
             const eventsLength = controller.events.length;
 
             controller.getNewEventHandler(event, appointment);

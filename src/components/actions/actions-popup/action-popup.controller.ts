@@ -1,11 +1,5 @@
-import {
-    EventBindings,
-    eventType,
-    Meeting,
-    types,
-    ValidationResult,
-} from '~initialState';
-import { participantsRegexp, titleRegexp } from '~consts';
+import { participantsRegexp, titleRegexp } from '../../../consts';
+import { EventBindings, eventType, Meeting, types, ValidationResult, Validators } from '../../../initialState';
 
 export class ActionPopupController {
     public title: string = '';
@@ -14,7 +8,7 @@ export class ActionPopupController {
     public actionType: types;
     public validationError: string = '';
 
-    private setParticipants(participants: string): string[] {
+    private setParticipants(participants: string): string[] | undefined {
         const hasParticipants: boolean = participants.length > 0;
 
         if (!hasParticipants) {
@@ -36,40 +30,42 @@ export class ActionPopupController {
         return event;
     }
 
-    public isTitleValid(title: string): boolean {
+    public isTitleValid = (title: string): boolean => {
         return titleRegexp.test(title);
-    }
+    };
 
-    public isParticipantsValid(participants: string): boolean {
+    public isParticipantsValid = (participants: string): boolean => {
         return participantsRegexp.test(participants);
-    }
+    };
 
     private getValidationResult(
         event: eventType,
         isEventTypeMeeting: boolean,
         participants: string,
     ): ValidationResult {
+        const initialValidationState: ValidationResult = { validationError: '', isInValid: false };
+        const validators: Validators = [this.isTitleValid.bind(this, event.title), this.isParticipantsValid.bind(this, participants)];
+        const errorTitleValidation: ValidationResult = { validationError: 'Title is invalid!', isInValid: true };
 
-        let validationError: string = '';
-        let isInValid: boolean = false;
-        const isTitleValid: boolean = this.isTitleValid(event.title);
-        const isParticipantsValid: boolean = this.isParticipantsValid(
-            participants,
-        );
+        const errorParticipantsValidation: ValidationResult = {
+            validationError: 'Participants is invalid!',
+            isInValid: true,
+        };
 
-        if (!isTitleValid) {
-            validationError = 'Title is invalid! ';
-        }
+        const errorTitleAndParticipantsValidation: ValidationResult = {
+            validationError: 'Title is invalid! Participants is invalid!',
+            isInValid: true,
+        };
 
-        if (isEventTypeMeeting && !isParticipantsValid) {
-            validationError += 'Participants is invalid!';
-        }
+        const validationResult: ValidationResult = validators.reduce((reduceResult: ValidationResult, validator: () => boolean, index: number): ValidationResult => {
+            if (index === 1) {
+                return isEventTypeMeeting ? validator() ? reduceResult : reduceResult.isInValid ? errorTitleAndParticipantsValidation : errorParticipantsValidation : reduceResult;
+            }
 
-        if (validationError.length > 0) {
-            isInValid = true;
-        }
+            return validator() ? reduceResult : errorTitleValidation;
+        }, initialValidationState);
 
-        return { validationError, isInValid };
+        return validationResult;
     }
 
     private setValidationError(error: string): void {

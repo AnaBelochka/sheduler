@@ -4,9 +4,9 @@ import {
     Scheduler,
     eventType,
     HttpMockServiceInterface,
-} from '~initialState';
-import { IAngularEvent, IScope, ITimeoutService } from 'angular';
-import { CREATE_NEW_EVENT, SEND_NEW_EVENT } from '~consts';
+} from '../../initialState';
+import { IAngularEvent, IPromise, IScope, ITimeoutService } from 'angular';
+import { CREATE_NEW_EVENT, SEND_NEW_EVENT } from '../../consts';
 
 export class SchedulerController {
     public user: User;
@@ -23,7 +23,7 @@ export class SchedulerController {
         httpMockService.getInitialData().then(this.getInitialDataHandler);
     }
 
-    private getInitialDataHandler = ({ user, events, actions }: Scheduler) =>
+    private getInitialDataHandler = ({ user, events, actions }: Scheduler): IPromise<void> =>
         this.$timeout(() => {
             this.isDataReceived = true;
             this.user = user;
@@ -31,14 +31,14 @@ export class SchedulerController {
             this.events = events;
         }, 5000);
 
-    public $onInit() {
+    public $onInit(): void {
         this.unsubscribeCreateNewEvent = this.$scope.$on(
             CREATE_NEW_EVENT,
             this.sendNewItemHandler,
         );
     }
 
-    public $onDestroy() {
+    public $onDestroy(): void {
         this.unsubscribeCreateNewEvent();
     }
 

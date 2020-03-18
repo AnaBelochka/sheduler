@@ -3,14 +3,13 @@ module.exports = function(config) {
         basePath: '',
         frameworks: ['jasmine', 'karma-typescript'],
         files: [
-            { pattern: 'src/**/*[sS]pec.ts' },
-            { pattern: 'src/**/*.ts' },
+            { pattern: 'src/**/*ts' },
         ],
         exclude: [],
         preprocessors: {
-            '**/*.ts': ['karma-typescript', 'coverage'],
+            '**/*.ts': ['karma-typescript'],
         },
-        reporters: ['progress', 'coverage', 'karma-typescript'],
+        reporters: ['progress', 'karma-typescript'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -21,5 +20,10 @@ module.exports = function(config) {
         karmaTypescriptConfig: {
             tsconfig: 'tsconfig.json',
         },
+        plugins: [
+            'karma-jasmine',
+            'karma-chrome-launcher',
+            'karma-typescript',
+        ],
     });
 };

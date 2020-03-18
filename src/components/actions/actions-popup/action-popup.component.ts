@@ -1,6 +1,6 @@
-import { ActionPopupController } from '~components/actions/actions-popup/action-popup.controller';
-import template from '~components/actions/actions-popup/action-popup.html';
-import '~components/actions/actions-popup/action-popup.less';
+import template from './action-popup.html';
+import './action-popup.less';
+import { ActionPopupController } from './action-popup.controller';
 
 export const ActionPopupComponent = {
     bindings: {

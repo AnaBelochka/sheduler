@@ -1,6 +1,6 @@
-import { types, eventType } from '~initialState';
+import { types, eventType } from '../../initialState';
 import { IScope } from 'angular';
-import { CREATE_NEW_EVENT } from '~consts';
+import { CREATE_NEW_EVENT } from '../../consts';
 
 export class ActionsController {
     public activeActionType: types;

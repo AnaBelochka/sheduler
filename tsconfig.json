@@ -1,15 +1,15 @@
 {
-    "compilerOptions": {
-        "target": "ES5",
-        "module": "commonjs",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "types": ["angular", "angular-mocks", "jasmine"],
-        "baseUrl": ".",
-        "paths": {
-            "~*": ["./src/*"]
-        }
-    }
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "types": [
+      "angular",
+      "angular-mocks",
+      "jasmine"
+    ]
+  }
 }

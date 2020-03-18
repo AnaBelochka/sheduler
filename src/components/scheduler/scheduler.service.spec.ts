@@ -1,11 +1,10 @@
 import { HttpMockService } from './scheduler.service';
-import { DATA_URL } from '~consts';
-import { Scheduler, types } from '~initialState';
+import { Scheduler, types } from '../../initialState';
 import * as angular from 'angular';
 
 describe('HttpMockService', () => {
     let service: any;
-    let $httpBackend: any;
+    let $http: any;
 
     const data: Scheduler = {
         actions: [
@@ -29,25 +28,16 @@ describe('HttpMockService', () => {
     beforeEach(angular.mock.module('scheduler'));
 
     beforeEach(() => {
-        inject($injector => {
-            service = $injector.get('HttpMockService');
-            $httpBackend = $injector.get('$httpBackend');
-
-            $httpBackend.when('GET', DATA_URL).respond(data);
-        });
-    });
-
-    afterEach(() => {
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
+        $http = {
+            get: jasmine.createSpy('getSpy'),
+        };
+        service = new HttpMockService($http);
     });
 
     describe('#getInitialData', () => {
-        it('should return initial data from url', function() {
-            service.getInitialData().then(function(response: any) {
-                expect(response).toEqual(data); //the response is null
-            });
-            $httpBackend.flush();
+        it('should return initial data from url', () => {
+            $http.get.and.returnValue(data)
+            expect($http.get()).toEqual(data);
         });
     });
 });

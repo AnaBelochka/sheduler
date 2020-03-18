@@ -1,8 +1,8 @@
 import { IHttpResponse, IPromise, IHttpService } from 'angular';
-import { HttpMockServiceInterface, Scheduler } from '~initialState';
-import { DATA_URL } from '~consts';
+import {  Scheduler } from '../../initialState';
+import { DATA_URL } from '../../consts';
 
-export class HttpMockService implements HttpMockServiceInterface {
+export class HttpMockService {
     constructor(private $http: IHttpService) {}
 
     public getInitialData(): IPromise<Scheduler> {
